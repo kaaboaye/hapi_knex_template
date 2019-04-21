@@ -1,8 +1,9 @@
 import * as knex from 'knex';
 import { Service } from 'typedi';
+import { BaseRepositoryConnection } from './common/baseRepository/options';
 
 @Service()
-export class Repo {
+export class DatabaseConnection implements BaseRepositoryConnection {
   public readonly knex: knex = knex({
     client: 'pg',
     connection: {
