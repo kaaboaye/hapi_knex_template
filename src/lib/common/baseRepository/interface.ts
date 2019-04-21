@@ -5,4 +5,5 @@ export interface BaseRepositoryInterface<Entity, IdType = number> {
   selectMany(): QueryBuilder;
   insert(attrs: Partial<Entity>): QueryBuilder;
   update(id: IdType, attrs: Partial<Entity>): QueryBuilder;
+  updateMany(attrs: any): QueryBuilder;
 }

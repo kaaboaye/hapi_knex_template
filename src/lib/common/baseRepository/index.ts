@@ -78,5 +78,9 @@ export function BaseRepository<Entity, IdType = number>({
 
       return query.update(attrs, selector);
     }
+
+    public updateMany(attrs: any): QueryBuilder {
+      return this.__connection__.knex(table).update(attrs, selector);
+    }
   };
 }
