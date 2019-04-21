@@ -1,32 +1,13 @@
 import { QueryBuilder } from 'knex';
-import { Repo } from '../repo';
-
-export type BaseRepositoryTable = string;
-export type BaseRepositorySelector = string[];
-export type BaseRepositoryColumnName = string | false;
-export type BaseRepositoryIdGenerator = () => any;
-
-export interface BaseRepositoryOptions {
-  id?: BaseRepositoryColumnName;
-  idGenerator?: BaseRepositoryIdGenerator;
-  sourceInsertedAt?: BaseRepositoryColumnName;
-  sourceUpdatedAt?: BaseRepositoryColumnName;
-}
-
-export interface BaseRepositoryInternalOptions {
-  id: BaseRepositoryColumnName;
-  idGenerator?: BaseRepositoryIdGenerator;
-  sourceInsertedAt: BaseRepositoryColumnName;
-  sourceUpdatedAt: BaseRepositoryColumnName;
-}
-
-export const defaultBaseRepositoryOptions: Readonly<BaseRepositoryInternalOptions> = Object.freeze({
-  id: 'id',
-  sourceInsertedAt: 'insertedAt',
-  appInsertedAt: 'insertedAt',
-  sourceUpdatedAt: 'updatedAt',
-  appUpdatedAt: 'updatedAt',
-});
+import { Repo } from '../../repo';
+import { BaseRepositoryInterface } from './interface';
+import {
+  BaseRepositoryInternalOptions,
+  BaseRepositoryOptions,
+  BaseRepositorySelector,
+  BaseRepositoryTable,
+  defaultBaseRepositoryOptions,
+} from './options';
 
 export function BaseRepository<Entity, IdType = number>(
   table: BaseRepositoryTable,
@@ -34,7 +15,7 @@ export function BaseRepository<Entity, IdType = number>(
   repo: Repo,
   opts?: BaseRepositoryOptions,
 ) {
-  return class {
+  return class implements BaseRepositoryInterface<Entity, IdType> {
     public readonly table: BaseRepositoryTable = table;
     protected readonly selector: BaseRepositorySelector = selector;
     private readonly __opts__: Readonly<BaseRepositoryInternalOptions> = opts
