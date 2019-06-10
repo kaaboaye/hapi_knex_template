@@ -9,7 +9,7 @@ const path = '/rest/v1/posts';
 export class WebV1PostRoutes {
   constructor(private readonly postController: WebV1PostController) {}
 
-  public readonly routes: ReadonlyArray<ServerRoute> = [
+  public readonly routes: ServerRoute[] = [
     {
       method: 'GET',
       path,

@@ -10,7 +10,7 @@ export class WebV1PostController {
   });
 
   public readonly show = async ({ params: { postId } }: any) => ({
-    data: await this.postService.getPost(postId),
+    data: await this.postService.getPostWithComments(postId),
   });
 
   public readonly create = async ({ payload: { post } }: any) => ({
